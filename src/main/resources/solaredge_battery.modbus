@@ -6,7 +6,7 @@ c_deviceaddress, 0xe140, 1, int
 c_sunspec_did, 0xe141, 1, int
 rated_energy, 0xe142, 2, floatle
 maximum_charge_continuous_power, 0xe144, 2, floatle
-maximum_discharge_continuous_power, 0xe146, 2, float
+maximum_discharge_continuous_power, 0xe146, 2, floatle
 maximum_charge_peak_power, 0xe148, 2, floatle
 maximum_discharge_peak_power, 0xe14a, 2, floatle
 average_temperature, 0xe16c, 2, floatle

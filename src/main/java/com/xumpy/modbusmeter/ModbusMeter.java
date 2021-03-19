@@ -10,7 +10,7 @@ import com.xumpy.modbusmeter.processors.ModbusFileProcessor;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class ModbusMeter {
     private Integer offset;
 
     private void readFileInModbus(ModbusTCPMaster master, String fileName, String data, Processor processor, Integer sleepTime) throws InterruptedException, ModbusException, IOException {
-        Map<String, Object> modbusValues = new HashMap<>();
+        Map<String, Object> modbusValues = new LinkedHashMap<>();
         List<ModbusRow> modbusRows = ModbusFileProcessor.process(data);
 
         for (ModbusRow modbusRow : modbusRows) {
@@ -36,7 +36,7 @@ public class ModbusMeter {
     }
 
     public void readModbus(String fileNames[], Processor processor, Integer sleepTimeBetween) throws IOException {
-        Map<String, String> filesAndContent = new HashMap<>();
+        Map<String, String> filesAndContent = new LinkedHashMap<>();
         for(String fileName: fileNames){
             String data = IOUtils.toString(ModbusMeter.class.getResourceAsStream("/" + fileName), "UTF-8");
             filesAndContent.put(fileName, data);
