@@ -16,13 +16,9 @@ public class EntryProcessor {
             return RegistryProcessor.registerToInt(registers);
         }
         if (modbusRow.getType().equals("floatle")){
-            System.out.println("--------------");
-            System.out.println(modbusRow.getIdentifier());
             return RegistryProcessor.registerToFloatLittleEndian(registers);
         }
         if (modbusRow.getType().equals("float")){
-            System.out.println("--------------");
-            System.out.println(modbusRow.getIdentifier());
             return RegistryProcessor.registerToFloat(registers);
         }
         return "type not recognized";
