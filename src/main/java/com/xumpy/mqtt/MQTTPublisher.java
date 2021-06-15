@@ -15,6 +15,7 @@ public class MQTTPublisher {
 
     public MQTTPublisher(String address, Integer port) throws MqttException {
         this.client = new MqttClient("tcp://" + address + ":" + port, MqttClient.generateClientId());
+        this.client.setTimeToWait(SLEEP_BETWEEN_ERROR);
     }
 
     public void connect() {
@@ -40,7 +41,6 @@ public class MQTTPublisher {
             }
             try{
                 client.connect();
-                client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 break;
             } catch (Exception exception) {
                 exception.printStackTrace();
