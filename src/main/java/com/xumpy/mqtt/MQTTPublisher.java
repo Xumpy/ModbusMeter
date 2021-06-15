@@ -11,29 +11,58 @@ import java.util.Map;
 public class MQTTPublisher {
 
     private MqttClient client;
+    private static final Integer SLEEP_BETWEEN_ERROR = 5000;
 
     public MQTTPublisher(String address, Integer port) throws MqttException {
         this.client = new MqttClient("tcp://" + address + ":" + port, MqttClient.generateClientId());
     }
 
-    public void connect() throws MqttException {
-        client.connect();
+    public void connect() {
+        while(true){
+            try {
+                client.connect();
+                break;
+            } catch (MqttException mqttException) {
+                mqttException.printStackTrace();
+                try{
+                    Thread.sleep(SLEEP_BETWEEN_ERROR);
+                } catch (Exception exception){
+                    exception.printStackTrace();
+                }
+            }
+        }
     }
 
-    public void disconnect() throws MqttException {
-        client.disconnect();
+    public void disconnect() {
+        while(true){
+            try {
+                client.disconnect();
+                break;
+            } catch (MqttException mqttException) {
+                mqttException.printStackTrace();
+                try{
+                    Thread.sleep(SLEEP_BETWEEN_ERROR);
+                } catch (Exception exception){
+                    exception.printStackTrace();
+                }
+            }
+        }
     }
 
     public void publish(Map<String, Object> message, String topic){
         ObjectMapper objectMapper = new ObjectMapper();
 
-        try {
-            MqttMessage mqttMessage = new MqttMessage();
-            mqttMessage.setPayload(objectMapper.writeValueAsString(message).getBytes());
-            client.publish(topic, mqttMessage);
+        while(true){
+            try {
+                MqttMessage mqttMessage = new MqttMessage();
+                mqttMessage.setPayload(objectMapper.writeValueAsString(message).getBytes());
+                client.publish(topic, mqttMessage);
+                break;
 
-        } catch (JsonProcessingException | MqttException e) {
-            e.printStackTrace();
+            } catch (JsonProcessingException | MqttException e) {
+                e.printStackTrace();
+                connect();
+            }
         }
     }
 }

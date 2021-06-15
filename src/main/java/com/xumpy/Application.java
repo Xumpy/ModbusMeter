@@ -52,11 +52,7 @@ public class Application implements ApplicationRunner {
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
-                        try {
-                            solarEdgeMqttPublisher.disconnect();
-                        } catch (MqttException e) {
-                            e.printStackTrace();
-                        }
+                        solarEdgeMqttPublisher.disconnect();
                     }
                 }
             }
