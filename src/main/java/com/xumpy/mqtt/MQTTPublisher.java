@@ -49,6 +49,7 @@ public class MQTTPublisher {
                 this.client = new MqttClient("tcp://" + this.address + ":" + this.port, MqttClient.generateClientId());
                 this.client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 client.connect();
+                System.out.println("Reconnected to the client");
                 break;
             } catch (Exception exception) {
                 exception.printStackTrace();
