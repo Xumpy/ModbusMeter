@@ -21,14 +21,10 @@ public class MQTTPublisher {
         while(true){
             try {
                 client.connect();
+                client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 break;
             } catch (MqttException mqttException) {
                 mqttException.printStackTrace();
-                try{
-                    Thread.sleep(SLEEP_BETWEEN_ERROR);
-                } catch (Exception exception){
-                    exception.printStackTrace();
-                }
             }
         }
     }
@@ -40,11 +36,6 @@ public class MQTTPublisher {
                 break;
             } catch (MqttException mqttException) {
                 mqttException.printStackTrace();
-                try{
-                    Thread.sleep(SLEEP_BETWEEN_ERROR);
-                } catch (Exception exception){
-                    exception.printStackTrace();
-                }
             }
         }
     }
@@ -61,6 +52,8 @@ public class MQTTPublisher {
 
             } catch (JsonProcessingException | MqttException e) {
                 e.printStackTrace();
+                System.out.println("Publish failed. Probabibly due to connection problems. Trying to reconnect");
+                disconnect();
                 connect();
             }
         }
