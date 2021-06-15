@@ -30,7 +30,15 @@ public class MQTTPublisher {
             try {
                 client.disconnect();
                 client.close();
+            } catch (Exception exception){
+                exception.printStackTrace();
+            }
+            try{
                 Thread.sleep(SLEEP_BETWEEN_ERROR);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            try{
                 client.connect();
                 client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 break;
