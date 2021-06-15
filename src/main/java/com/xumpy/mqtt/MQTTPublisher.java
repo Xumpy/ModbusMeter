@@ -11,9 +11,15 @@ import java.util.Map;
 public class MQTTPublisher {
 
     private MqttClient client;
+    private String address;
+    private Integer port;
+
     private static final Integer SLEEP_BETWEEN_ERROR = 5000;
 
     public MQTTPublisher(String address, Integer port) throws MqttException {
+        this.address = address;
+        this.port = port;
+
         this.client = new MqttClient("tcp://" + address + ":" + port, MqttClient.generateClientId());
         this.client.setTimeToWait(SLEEP_BETWEEN_ERROR);
     }
@@ -40,6 +46,8 @@ public class MQTTPublisher {
                 exception.printStackTrace();
             }
             try{
+                this.client = new MqttClient("tcp://" + this.address + ":" + this.port, MqttClient.generateClientId());
+                this.client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 client.connect();
                 break;
             } catch (Exception exception) {
