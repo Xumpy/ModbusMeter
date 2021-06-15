@@ -50,6 +50,7 @@ public class MQTTPublisher {
             } catch (JsonProcessingException | MqttException e) {
                 e.printStackTrace();
                 System.out.println("Publish failed. Probabibly due to connection problems. Trying to reconnect");
+                disconnect();
                 connect();
             }
         }
