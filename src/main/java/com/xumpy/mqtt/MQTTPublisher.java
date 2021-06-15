@@ -24,6 +24,11 @@ public class MQTTPublisher {
                 client.setTimeToWait(SLEEP_BETWEEN_ERROR);
                 break;
             } catch (MqttException mqttException) {
+                try{
+                    Thread.sleep(SLEEP_BETWEEN_ERROR);
+                } catch (Exception exception){
+                    exception.printStackTrace();
+                }
                 mqttException.printStackTrace();
             }
         }
