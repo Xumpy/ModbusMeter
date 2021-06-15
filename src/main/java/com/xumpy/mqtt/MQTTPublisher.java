@@ -30,13 +30,10 @@ public class MQTTPublisher {
     }
 
     public void disconnect() {
-        while(true){
-            try {
-                client.disconnect();
-                break;
-            } catch (MqttException mqttException) {
-                mqttException.printStackTrace();
-            }
+        try {
+            client.disconnect();
+        } catch (MqttException mqttException) {
+            mqttException.printStackTrace();
         }
     }
 
@@ -53,7 +50,6 @@ public class MQTTPublisher {
             } catch (JsonProcessingException | MqttException e) {
                 e.printStackTrace();
                 System.out.println("Publish failed. Probabibly due to connection problems. Trying to reconnect");
-                disconnect();
                 connect();
             }
         }
